@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Favorite Person 💕</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter & Caveat for handwritten romantic touches -->
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        hand: ['Caveat', 'cursive'],
+                    },
+                    colors: {
+                        blush: {
+                            50: '#fff1f2',
+                            100: '#ffe4e6',
+                            200: '#fecdd3',
+                            300: '#fda4af',
+                            400: '#fb7185',
+                            500: '#f43f5e',
+                            600: '#e11d48',
+                        },
+                        lavender: {
+                            50: '#fdf4ff',
+                            100: '#fae8ff',
+                            200: '#f5d0fe',
+                            300: '#e879f9',
+                            500: '#d946ef',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @keyframes floatSlow {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(3deg); }
+        }
+        @keyframes pulseGlow {
+            0%, 100% { box-shadow: 0 0 15px rgba(244, 63, 94, 0.3); }
+            50% { box-shadow: 0 0 30px rgba(244, 63, 94, 0.6); }
+        }
+        .float-animation {
+            animation: floatSlow 4s ease-in-out infinite;
+        }
+        .pulse-glow {
+            animation: pulseGlow 3s ease-in-out infinite;
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #fff1f2;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #fda4af;
+            border-radius: 9999px;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-pink-50 via-purple-50 to-rose-100 min-h-screen text-slate-700 font-sans relative overflow-x-hidden select-none">
+
+    <!-- Floating Background Hearts Container -->
+    <div id="bg-hearts" class="fixed inset-0 pointer-events-none overflow-hidden z-0"></div>
+
+    <!-- Top Music & Audio Control Bar -->
+    <header class="fixed top-4 right-4 z-50 flex items-center gap-3 bg-white/80 backdrop-blur-md px-4 py-2 rounded-full shadow-lg border border-pink-100">
+        <span class="text-xs font-medium text-pink-600 hidden sm:inline" id="audio-status">🎵 Cozy Vibe Audio</span>
+        <button id="audio-toggle" onclick="toggleAudio()" class="bg-gradient-to-r from-pink-500 to-rose-500 text-white p-2.5 rounded-full shadow-md hover:scale-105 transition active:scale-95 focus:outline-none flex items-center justify-center w-10 h-10">
+            <svg id="audio-icon-play" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+            <svg id="audio-icon-pause" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+        </button>
+    </header>
+
+    <!-- Main Container -->
+    <main class="relative z-10 max-w-4xl mx-auto px-4 py-12 flex flex-col items-center gap-16">
+
+        <!-- Hero Section -->
+        <section class="text-center mt-6 flex flex-col items-center">
+            <div class="inline-block bg-white/70 backdrop-blur-md border border-pink-200 px-6 py-2 rounded-full text-pink-600 font-medium text-sm mb-4 shadow-sm float-animation">
+                ✨ Made with endless love, just for you ✨
+            </div>
+            <h1 class="text-5xl md:text-7xl font-hand font-bold text-slate-800 mb-4 tracking-wide">
+                Hey Beautiful... <span class="text-pink-500">💕</span>
+            </h1>
+            <p class="text-slate-600 max-w-md mx-auto text-base md:text-lg">
+                I built this little corner of the internet to remind you how ridiculously amazing you are. Take a look around! 👇
+            </p>
+        </section>
+
+        <!-- Section 1: The Annoying / Playful Quiz -->
+        <section id="quiz-section" class="w-full bg-white/70 backdrop-blur-xl border border-white/80 rounded-3xl p-8 md:p-12 shadow-2xl pulse-glow transition-all duration-500">
+            <div class="text-center max-w-lg mx-auto">
+                <span class="text-pink-500 font-bold tracking-widest text-xs uppercase bg-pink-100 px-3 py-1 rounded-full">Important Pop Quiz</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-slate-800 mt-3 mb-6" id="question-text">Do you love me back? 🥺</h2>
+                
+                <div id="quiz-buttons" class="flex items-center justify-center gap-6 relative min-h-[90px] mt-8">
+                    <button onclick="handleYesClick()" class="bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white font-bold text-lg px-8 py-4 rounded-2xl shadow-lg hover:shadow-xl transition transform hover:-translate-y-1 active:translate-y-0 cursor-pointer">
+                        Yes, absolutely! 🥰
+                    </button>
+                    <button id="no-btn" onmouseover="dodgeNoButton()" ontouchstart="dodgeNoButton()" onclick="dodgeNoButton()" class="bg-slate-200 hover:bg-slate-300 text-slate-700 font-semibold text-lg px-8 py-4 rounded-2xl shadow transition cursor-pointer absolute right-4 md:right-16">
+                        No 🙄
+                    </button>
+                </div>
+                <p id="quiz-feedback" class="text-pink-600 font-medium mt-6 h-6 text-lg transition-all"></p>
+            </div>
+        </section>
+
+        <!-- Section 2: Polaroid Memory Gallery -->
+        <section class="w-full">
+            <div class="text-center mb-10">
+                <span class="text-pink-500 font-bold tracking-widest text-xs uppercase bg-pink-100 px-3 py-1 rounded-full">Our Memories</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-slate-800 mt-2">Favorite Moments With You 📸</h2>
+                <p class="text-slate-500 text-sm mt-1">Hover over any polaroid to see the inside joke!</p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+                <!-- Polaroid 1 -->
+                <div class="group bg-white p-4 pb-6 rounded-2xl shadow-xl border border-pink-100 transform hover:-translate-y-2 hover:rotate-1 transition duration-300 cursor-pointer">
+                    <div class="relative overflow-hidden rounded-xl bg-pink-50 aspect-[4/5] flex items-center justify-center">
+                        <img src="https://placehold.co/400x500/ffe4e6/f43f5e?text=First+Coffee+Date" alt="Memory" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" onerror="this.src='https://placehold.co/400x500/ffe4e6/f43f5e?text=Us ❤️'">
+                        <div class="absolute inset-0 bg-pink-900/20 opacity-0 group-hover:opacity-100 transition flex items-center justify-center p-4 text-center">
+                            <p class="text-white font-hand text-2xl drop-shadow-md">"You ordered way too many pastries and I fell in love."</p>
+                        </div>
+                    </div>
+                    <div class="mt-4 text-center">
+                        <p class="font-hand text-2xl text-slate-800">The Day It All Began ☕</p>
+                        <p class="text-xs text-slate-400">Our very first date</p>
+                    </div>
+                </div>
+
+                <!-- Polaroid 2 -->
+                <div class="group bg-white p-4 pb-6 rounded-2xl shadow-xl border border-pink-100 transform hover:-translate-y-2 hover:-rotate-1 transition duration-300 cursor-pointer">
+                    <div class="relative overflow-hidden rounded-xl bg-purple-50 aspect-[4/5] flex items-center justify-center">
+                        <img src="https://placehold.co/400x500/fae8ff/d946ef?text=Sunset+Walks" alt="Memory" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" onerror="this.src='https://placehold.co/400x500/fae8ff/d946ef?text=Sunset+Walks'">
+                        <div class="absolute inset-0 bg-purple-900/20 opacity-0 group-hover:opacity-100 transition flex items-center justify-center p-4 text-center">
+                            <p class="text-white font-hand text-2xl drop-shadow-md">"You laughed so hard you dropped your ice cream on your shoes!"</p>
+                        </div>
+                    </div>
+                    <div class="mt-4 text-center">
+                        <p class="font-hand text-2xl text-slate-800">Sunset Chasers 🌅</p>
+                        <p class="text-xs text-slate-400">That unforgettable beach trip</p>
+                    </div>
+                </div>
+
+                <!-- Polaroid 3 -->
+                <div class="group bg-white p-4 pb-6 rounded-2xl shadow-xl border border-pink-100 transform hover:-translate-y-2 hover:rotate-2 transition duration-300 cursor-pointer sm:col-span-2 md:col-span-1 max-w-sm mx-auto w-full">
+                    <div class="relative overflow-hidden rounded-xl bg-rose-50 aspect-[4/5] flex items-center justify-center">
+                        <img src="https://placehold.co/400x500/ffe4e6/e11d48?text=Movie+Marathon" alt="Memory" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" onerror="this.src='https://placehold.co/400x500/ffe4e6/e11d48?text=Movie+Night'">
+                        <div class="absolute inset-0 bg-rose-900/20 opacity-0 group-hover:opacity-100 transition flex items-center justify-center p-4 text-center">
+                            <p class="text-white font-hand text-2xl drop-shadow-md">"You stole all the blankets and fell asleep 10 minutes in."</p>
+                        </div>
+                    </div>
+                    <div class="mt-4 text-center">
+                        <p class="font-hand text-2xl text-slate-800">Cozy Movie Nights 🍿</p>
+                        <p class="text-xs text-slate-400">My absolute favorite place</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Interactive Love Coupons -->
+        <section class="w-full">
+            <div class="text-center mb-10">
+                <span class="text-pink-500 font-bold tracking-widest text-xs uppercase bg-pink-100 px-3 py-1 rounded-full">Redeemable Perks</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-slate-800 mt-2">Unlimited Love Coupons 🎟️</h2>
+                <p class="text-slate-500 text-sm mt-1">Click any coupon to redeem it whenever you want!</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Coupon 1 -->
+                <div class="bg-white/80 backdrop-blur-md border-2 border-dashed border-pink-300 rounded-3xl p-6 shadow-md hover:shadow-xl transition flex flex-col justify-between relative overflow-hidden group">
+                    <div class="absolute -right-10 -bottom-10 w-32 h-32 bg-pink-100 rounded-full group-hover:scale-125 transition duration-500 pointer-events-none"></div>
+                    <div>
+                        <div class="flex justify-between items-start mb-2">
+                            <span class="text-xs font-bold text-pink-500 uppercase tracking-wider bg-pink-50 px-3 py-1 rounded-full">Valid Forever</span>
+                            <span class="text-2xl">💆‍♀️</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-800 mt-2">One Free Back / Foot Massage</h3>
+                        <p class="text-slate-500 text-sm mt-1">Includes unlimited complaining rights and back scratchies.</p>
+                    </div>
+                    <div class="mt-6 flex items-center justify-between">
+                        <span id="coupon-1-status" class="text-xs font-medium text-slate-400">Not redeemed yet</span>
+                        <button onclick="redeemCoupon(1, 'One Free Back / Foot Massage')" class="bg-pink-500 hover:bg-pink-600 text-white font-semibold px-5 py-2 rounded-xl text-sm shadow transition active:scale-95 cursor-pointer">
+                            Redeem Now ✨
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Coupon 2 -->
+                <div class="bg-white/80 backdrop-blur-md border-2 border-dashed border-purple-300 rounded-3xl p-6 shadow-md hover:shadow-xl transition flex flex-col justify-between relative overflow-hidden group">
+                    <div class="absolute -right-10 -bottom-10 w-32 h-32 bg-purple-100 rounded-full group-hover:scale-125 transition duration-500 pointer-events-none"></div>
+                    <div>
+                        <div class="flex justify-between items-start mb-2">
+                            <span class="text-xs font-bold text-purple-500 uppercase tracking-wider bg-purple-50 px-3 py-1 rounded-full">Valid Anytime</span>
+                            <span class="text-2xl">🍕</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-800 mt-2">Whatever Food You Want Delivery</h3>
+                        <p class="text-slate-500 text-sm mt-1">Zero debate. Whatever you crave is what we order immediately.</p>
+                    </div>
+                    <div class="mt-6 flex items-center justify-between">
+                        <span id="coupon-2-status" class="text-xs font-medium text-slate-400">Not redeemed yet</span>
+                        <button onclick="redeemCoupon(2, 'Whatever Food You Want Delivery')" class="bg-purple-500 hover:bg-purple-600 text-white font-semibold px-5 py-2 rounded-xl text-sm shadow transition active:scale-95 cursor-pointer">
+                            Redeem Now ✨
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Coupon 3 -->
+                <div class="bg-white/80 backdrop-blur-md border-2 border-dashed border-rose-300 rounded-3xl p-6 shadow-md hover:shadow-xl transition flex flex-col justify-between relative overflow-hidden group">
+                    <div class="absolute -right-10 -bottom-10 w-32 h-32 bg-rose-100 rounded-full group-hover:scale-125 transition duration-500 pointer-events-none"></div>
+                    <div>
+                        <div class="flex justify-between items-start mb-2">
+                            <span class="text-xs font-bold text-rose-500 uppercase tracking-wider bg-rose-50 px-3 py-1 rounded-full">No Expiry</span>
+                            <span class="text-2xl">🎬</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-800 mt-2">Movie / Show Control Pass</h3>
+                        <p class="text-slate-500 text-sm mt-1">You pick the movie, and I promise not to fall asleep or complain.</p>
+                    </div>
+                    <div class="mt-6 flex items-center justify-between">
+                        <span id="coupon-3-status" class="text-xs font-medium text-slate-400">Not redeemed yet</span>
+                        <button onclick="redeemCoupon(3, 'Movie / Show Control Pass')" class="bg-rose-500 hover:bg-rose-600 text-white font-semibold px-5 py-2 rounded-xl text-sm shadow transition active:scale-95 cursor-pointer">
+                            Redeem Now ✨
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Coupon 4 -->
+                <div class="bg-white/80 backdrop-blur-md border-2 border-dashed border-pink-300 rounded-3xl p-6 shadow-md hover:shadow-xl transition flex flex-col justify-between relative overflow-hidden group">
+                    <div class="absolute -right-10 -bottom-10 w-32 h-32 bg-pink-100 rounded-full group-hover:scale-125 transition duration-500 pointer-events-none"></div>
+                    <div>
+                        <div class="flex justify-between items-start mb-2">
+                            <span class="text-xs font-bold text-pink-500 uppercase tracking-wider bg-pink-50 px-3 py-1 rounded-full">Unlimited Uses</span>
+                            <span class="text-2xl">🤗</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-800 mt-2">Endless Hugs & Kisses on Demand</h3>
+                        <p class="text-slate-500 text-sm mt-1">Can be cashed in at any moment, rain or shine.</p>
+                    </div>
+                    <div class="mt-6 flex items-center justify-between">
+                        <span id="coupon-4-status" class="text-xs font-medium text-slate-400">Not redeemed yet</span>
+                        <button onclick="redeemCoupon(4, 'Endless Hugs & Kisses on Demand')" class="bg-gradient-to-r from-pink-500 to-rose-500 text-white font-semibold px-5 py-2 rounded-xl text-sm shadow transition active:scale-95 cursor-pointer">
+                            Redeem Now ✨
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="text-center text-slate-500 text-sm pb-12">
+            <p class="font-hand text-2xl text-pink-600 mb-1">Forever & Always Yours ❤️</p>
+            <p>Built with love and code just for you.</p>
+        </footer>
+
+    </main>
+
+    <!-- Custom Modal for Alerts / Success -->
+    <div id="custom-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/50 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300">
+        <div class="bg-white rounded-3xl p-8 max-w-sm w-full mx-4 shadow-2xl transform scale-95 transition-transform duration-300 text-center" id="modal-content-box">
+            <div id="modal-icon" class="text-5xl mb-3">💖</div>
+            <h3 id="modal-title" class="text-2xl font-bold text-slate-800 mb-2">Yay!</h3>
+            <p id="modal-desc" class="text-slate-600 mb-6 text-sm"></p>
+            <button onclick="closeModal()" class="w-full bg-gradient-to-r from-pink-500 to-rose-500 text-white font-bold py-3 rounded-xl shadow hover:opacity-95 transition cursor-pointer">
+                Got it! 🥰
+            </button>
+        </div>
+    </div>
+
+    <!-- JavaScript Application Logic -->
+    <script>
+        // --- 1. Background Floating Hearts Generator ---
+        const bgHeartsContainer = document.getElementById('bg-hearts');
+        const heartSymbols = ['❤️', '💖', '💕', '✨', '🌸', '💗'];
+
+        function createBgHeart() {
+            const heart = document.createElement('div');
+            heart.innerHTML = heartSymbols[Math.floor(Math.random() * heartSymbols.length)];
+            heart.className = 'absolute text-pink-300/40 select-none pointer-events-none transition-all duration-1000';
+            
+            const startX = Math.random() * window.innerWidth;
+            const startY = window.innerHeight + 50;
+            const size = Math.floor(Math.random() * 20) + 16;
+            const duration = Math.random() * 6 + 6; // 6 to 12s
+            const drift = (Math.random() - 0.5) * 150;
+
+            heart.style.left = `${startX}px`;
+            heart.style.top = `${startY}px`;
+            heart.style.fontSize = `${size}px`;
+            
+            bgHeartsContainer.appendChild(heart);
+
+            heart.animate([
+                { transform: `translate(0px, 0px) rotate(0deg)`, opacity: 0.8 },
+                { transform: `translate(${drift}px, -${window.innerHeight + 100}px) rotate(360deg)`, opacity: 0 }
+            ], {
+                duration: duration * 1000,
+                easing: 'linear'
+            }).onfinish = () => {
+                heart.remove();
+            };
+        }
+
+        // Spawn background hearts periodically
+        setInterval(createBgHeart, 600);
+
+        // Click anywhere to spawn sparkle/heart effect
+        window.addEventListener('click', (e) => {
+            // Don't spawn if clicking buttons or interactive elements directly
+            if (e.target.tagName === 'BUTTON') return;
+
+            const sparkle = document.createElement('div');
+            sparkle.innerHTML = ['✨', '💖', '⭐', '❤️'][Math.floor(Math.random() * 4)];
+            sparkle.className = 'fixed pointer-events-none z-50 text-xl select-none transition-all duration-700';
+            sparkle.style.left = `${e.clientX - 10}px`;
+            sparkle.style.top = `${e.clientY - 10}px`;
+            
+            document.body.appendChild(sparkle);
+
+            sparkle.animate([
+                { transform: 'translate(0, 0) scale(1)', opacity: 1 },
+                { transform: `translate(${(Math.random() - 0.5) * 80}px, -80px) scale(1.5)`, opacity: 0 }
+            ], {
+                duration: 800,
+                easing: 'ease-out'
+            }).onfinish = () => sparkle.remove();
+        });
+
+
+        // --- 2. Runaway "No" Button Logic ---
+        const noPhrases = [
+            "No 🙄",
+            "Are you sure? 🤨",
+            "Think again! 💭",
+            "Wrong button! ❌",
+            "Nice try! 😉",
+            "Not allowed! 🛑",
+            "Click Yes instead! 💖",
+            "Error 404: No not found 🤖"
+        ];
+        let noClickCount = 0;
+
+        function dodgeNoButton() {
+            const noBtn = document.getElementById('no-btn');
+            const quizSection = document.getElementById('quiz-section');
+            
+            // Cycle through cheeky button text
+            noClickCount = (noClickCount + 1) % noPhrases.length;
+            noBtn.innerText = noPhrases[noClickCount];
+
+            // Calculate random safe offsets within the quiz card
+            const maxX = quizSection.clientWidth - noBtn.clientWidth - 40;
+            const maxY = 120;
+            
+            const randomX = Math.floor(Math.random() * Math.max(maxX, 100)) - 50;
+            const randomY = (Math.random() - 0.5) * 80;
+
+            noBtn.style.position = 'relative';
+            noBtn.style.transform = `translate(${randomX}px, ${randomY}px)`;
+        }
+
+        function handleYesClick() {
+            const feedback = document.getElementById('quiz-feedback');
+            const quizButtons = document.getElementById('quiz-buttons');
+            const questionText = document.getElementById('question-text');
+
+            questionText.innerText = "YAY! Best answer ever! 🥰🎉";
+            feedback.innerText = "You're officially stuck with me forever!";
+            quizButtons.style.display = 'none';
+
+            // Trigger celebration burst
+            for (let i = 0; i < 30; i++) {
+                setTimeout(createBgHeart, i * 50);
+            }
+        }
+
+
+        // --- 3. Redeemable Coupons Logic ---
+        function redeemCoupon(id, title) {
+            const statusSpan = document.getElementById(`coupon-${id}-status`);
+            statusSpan.innerText = "Redeemed! Screenshot this! ✅";
+            statusSpan.className = "text-xs font-semibold text-pink-600 bg-pink-50 px-2 py-1 rounded-md";
+
+            showModal("Coupon Redeemed! 🎟️", `You successfully cashed in: "${title}". Take a screenshot and send it to me right now to claim it!`);
+        }
+
+
+        // --- 4. Custom Modal Controller ---
+        function showModal(title, desc) {
+            const modal = document.getElementById('custom-modal');
+            const modalBox = document.getElementById('modal-content-box');
+            document.getElementById('modal-title').innerText = title;
+            document.getElementById('modal-desc').innerText = desc;
+
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+            modalBox.classList.remove('scale-95');
+            modalBox.classList.add('scale-100');
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('custom-modal');
+            const modalBox = document.getElementById('modal-content-box');
+
+            modal.classList.add('opacity-0', 'pointer-events-none');
+            modalBox.classList.remove('scale-100');
+            modalBox.classList.add('scale-95');
+        }
+
+
+        // --- 5. Synthesized Lo-Fi Background Music (Web Audio API) ---
+        let audioCtx = null;
+        let isAudioPlaying = false;
+        let audioInterval = null;
+
+        function toggleAudio() {
+            const playIcon = document.getElementById('audio-icon-play');
+            const pauseIcon = document.getElementById('audio-icon-pause');
+            const statusText = document.getElementById('audio-status');
+
+            if (!isAudioPlaying) {
+                // Initialize Web Audio Context
+                const AudioContext = window.AudioContext || window.webkitAudioContext;
+                audioCtx = new AudioContext();
+                
+                isAudioPlaying = true;
+                playIcon.classList.add('hidden');
+                pauseIcon.classList.remove('hidden');
+                statusText.innerText = "Playing cozy vibes 🎶";
+
+                startLoFiLoop();
+            } else {
+                if (audioCtx) {
+                    audioCtx.suspend();
+                }
+                isAudioPlaying = false;
+                playIcon.classList.remove('hidden');
+                pauseIcon.classList.add('hidden');
+                statusText.innerText = "Audio paused";
+
+                if (audioInterval) clearInterval(audioInterval);
+            }
+        }
+
+        // Gentle relaxing chord progression (Cmaj7, Am7, Fmaj7, G7)
+        const chords = [
+            [261.63, 329.63, 392.00, 493.88], // Cmaj7
+            [220.00, 261.63, 329.63, 392.00], // Am7
+            [174.61, 220.00, 261.63, 329.63], // Fmaj7
+            [196.00, 246.94, 293.66, 349.23]  // G7
+        ];
+        let chordIndex = 0;
+
+        function playChord(frequencies) {
+            if (!audioCtx || audioCtx.state !== 'running') return;
+
+            frequencies.forEach((freq, idx) => {
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+
+                // Soft envelope for a warm cozy Rhodes/synth feel
+                gain.gain.setValueAtTime(0, audioCtx.currentTime);
+                gain.gain.linearRampToValueAtTime(0.03, audioCtx.currentTime + 0.5);
+                gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 3.5);
+
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+
+                osc.start();
+                osc.stop(audioCtx.currentTime + 3.6);
+            });
+        }
+
+        function startLoFiLoop() {
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+            // Play first chord immediately
+            playChord(chords[chordIndex]);
+            chordIndex = (chordIndex + 1) % chords.length;
+
+            // Loop every 3.5 seconds
+            audioInterval = setInterval(() => {
+                if (isAudioPlaying) {
+                    playChord(chords[chordIndex]);
+                    chordIndex = (chordIndex + 1) % chords.length;
+                }
+            }, 3500);
+        }
+    </script>
+</body>
+</html>
